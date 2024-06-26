@@ -1,0 +1,23 @@
+server:
+  port: 8080
+cors:
+  originPatters: http://localhost:3000,http://localhost:8080,http://localhost:80
+spring:
+  application:
+    name: rest-api-with-java
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/rest_api_db?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: 36412
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      show-sql: false
+  output:
+    ansi:
+      #deixa a saída do console colorida
+      enabled: ALWAYS
