@@ -1,7 +1,10 @@
 package com.tizo.br.services;
 
+import com.tizo.br.mapper.ModelMapperUtil;
 import com.tizo.br.model.Permission;
 import com.tizo.br.model.User;
+import com.tizo.br.model.vo.security.UserAccountRecordVO;
+import com.tizo.br.model.vo.security.UserInfosVO;
 import com.tizo.br.repositories.PermissionRepository;
 import com.tizo.br.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,18 @@ public class UserService implements UserDetailsService {
     @Autowired
     PermissionRepository permissionRepository;
 
-    public User createUser(User user, List<Long> authorityID) {
+    public List<UserInfosVO> findAllUsers() {
+        return ModelMapperUtil.parseListObjects(userRepository.findAll(), UserInfosVO.class);
+    }
+
+    public UserInfosVO createUser(UserAccountRecordVO user, List<Long> authorityID) {
+
+        return ModelMapperUtil.parseObject(userRepository.save(userAccountRecordVOToUser(user, authorityID)), UserInfosVO.class);
+    }
+
+    private User userAccountRecordVOToUser(UserAccountRecordVO userAccountRecordVO, List<Long> authorityID) {
+
+        User user = new User();
 
         //Criptografa a senha antes de salvar no banco de dados
         Map<String, PasswordEncoder> encoderMap = new HashMap<>();
@@ -48,8 +62,11 @@ public class UserService implements UserDetailsService {
         encoderMap.put("pbkdf2", pbkdf2PasswordEncoder);
         DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoderMap);
         passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2PasswordEncoder);
+
         //Atualiza a senha para a senha criptografada
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(userAccountRecordVO.getPassword()));
+        user.setEmail(userAccountRecordVO.getEmail());
+        user.setUsername(userAccountRecordVO.getUsername());
 
         List<Permission> permissions = new ArrayList<>();
 
@@ -59,11 +76,7 @@ public class UserService implements UserDetailsService {
 
         user.setPermissions(permissions);
 
-        return userRepository.save(user);
-    }
-
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+        return user;
     }
 
     @Override

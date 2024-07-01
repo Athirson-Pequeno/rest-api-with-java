@@ -60,7 +60,9 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/auth/**",
                                         "/api/users/v1",
-                                        "/api/users/v1/recordUser/commonUser")
+                                        "/api/users/v1/recordUser/commonUser",
+                                        "/swagger-ui/**",
+                                        "/v3/api-docs/**")
                                 .permitAll()
                                 .requestMatchers(
                                         "/api/users/v1/recordUser/managerUser")

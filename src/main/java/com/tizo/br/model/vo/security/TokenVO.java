@@ -3,6 +3,7 @@ package com.tizo.br.model.vo.security;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class TokenVO implements Serializable {
@@ -17,7 +18,8 @@ public class TokenVO implements Serializable {
     private String accessToken;
     private String refreshToken;
 
-    public TokenVO(String username, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshToken) {
+
+    public TokenVO(String username, Boolean authenticated, Date created, Date expiration, String accessToken, String refreshToken, List<String> roles) {
         this.username = username;
         this.authenticated = authenticated;
         this.created = created;
@@ -76,6 +78,7 @@ public class TokenVO implements Serializable {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
 
     @Override
     public boolean equals(Object o) {
