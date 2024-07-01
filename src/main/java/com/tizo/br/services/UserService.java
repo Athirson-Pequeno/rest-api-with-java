@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     PermissionRepository permissionRepository;
 
-    public User createUser(User user) {
+    public User createUser(User user, List<Long> authorityID) {
 
         //Criptografa a senha antes de salvar no banco de dados
         Map<String, PasswordEncoder> encoderMap = new HashMap<>();
@@ -48,18 +48,17 @@ public class UserService implements UserDetailsService {
         encoderMap.put("pbkdf2", pbkdf2PasswordEncoder);
         DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoderMap);
         passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2PasswordEncoder);
-
-
+        //Atualiza a senha para a senha criptografada
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        /*user.setEnabled(true);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);*/
-
         List<Permission> permissions = new ArrayList<>();
-        permissions.add(permissionRepository.findById(3L).stream().findFirst().orElse(new Permission(99L, "ERRO")));
+
+        for (Long authority : authorityID) {
+            permissions.add(permissionRepository.findById(authority).stream().findFirst().orElse(new Permission(99L, "ERRO")));
+        }
+
         user.setPermissions(permissions);
+
         return userRepository.save(user);
     }
 
@@ -70,7 +69,6 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        logger.info("Finding one user by email " + email + "!");
         var user = userRepository.findByEmail(email);
 
         if (user != null) {

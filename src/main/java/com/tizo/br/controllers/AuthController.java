@@ -30,14 +30,14 @@ public class AuthController {
     }
 
     @SuppressWarnings("rawtypes")
-    @PutMapping(value = "/refresh/{username}")
-    public ResponseEntity refreshToken(@PathVariable("username") String username,
+    @PutMapping(value = "/refresh/{email}")
+    public ResponseEntity refreshToken(@PathVariable("email") String email,
                                        @RequestHeader("Authorization") String refreshToken) {
 
-        if (checkIfParamsIsNotNull(username, refreshToken))
+        if (checkIfParamsIsNotNull(email, refreshToken))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 
-        var token = authServices.refreshToken(username, refreshToken);
+        var token = authServices.refreshToken(email, refreshToken);
         if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 
         return token;

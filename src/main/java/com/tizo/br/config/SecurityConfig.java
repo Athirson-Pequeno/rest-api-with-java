@@ -58,14 +58,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(
-                                        "/auth/**"
-                                ).permitAll()
+                                        "/auth/**",
+                                        "/api/users/v1",
+                                        "/api/users/v1/recordUser/commonUser")
+                                .permitAll()
                                 .requestMatchers(
-                                        "/api/**")
-                                .authenticated()
+                                        "/api/users/v1/recordUser/managerUser")
+                                .hasAnyAuthority("MANAGER", "ADMIN")
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
     }
-
 }

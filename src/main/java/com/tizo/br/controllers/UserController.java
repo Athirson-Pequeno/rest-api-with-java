@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,18 @@ public class UserController {
         return ResponseEntity.ok(service.findAllUsers());
     }
 
-    @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
-        return ResponseEntity.ok(service.createUser(user));
+    @PostMapping("/recordUser/commonUser")
+    public ResponseEntity<User> createCommonUser(@RequestBody User user) {
+        List<Long> authorities = new ArrayList<>();
+        authorities.add(3L);
+        return ResponseEntity.ok(service.createUser(user, authorities));
+    }
+
+    @PostMapping("/recordUser/managerUser")
+    public ResponseEntity<User> createManager(@RequestBody User user) {
+        List<Long> authorities = new ArrayList<>();
+        authorities.add(2L);
+        authorities.add(3L);
+        return ResponseEntity.ok(service.createUser(user, authorities));
     }
 }

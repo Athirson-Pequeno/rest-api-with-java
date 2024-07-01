@@ -114,7 +114,6 @@ public class JwtTokenProvider {
         JWTVerifier jwtVerifier = JWT.require(alg).build();
 
         return jwtVerifier.verify(token);
-
     }
 
     public String resolveToken(HttpServletRequest request) {
