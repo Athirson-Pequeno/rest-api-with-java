@@ -16,10 +16,19 @@ public class UserInfosVO implements Serializable {
     public UserInfosVO() {
     }
 
+    private Long id;
     private String email;
     private String username;
     private Boolean enabled;
     private List<String> roles;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -57,11 +66,11 @@ public class UserInfosVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserInfosVO that)) return false;
-        return Objects.equals(email, that.email) && Objects.equals(username, that.username) && Objects.equals(enabled, that.enabled) && Objects.equals(roles, that.roles);
+        return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(username, that.username) && Objects.equals(enabled, that.enabled) && Objects.equals(roles, that.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, username, enabled, roles);
+        return Objects.hash(id, email, username, enabled, roles);
     }
 }

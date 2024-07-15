@@ -62,11 +62,18 @@ public class SecurityConfig {
                                         "/api/users/v1",
                                         "/api/users/v1/recordUser/commonUser",
                                         "/swagger-ui/**",
-                                        "/v3/api-docs/**")
+                                        "/v3/api-docs/**",
+                                        "/api/product/v1/findAll")
                                 .permitAll()
                                 .requestMatchers(
-                                        "/api/users/v1/recordUser/managerUser")
+                                        "/api/users/v1/recordUser/managerUser",
+                                        "/api/users/v1/findAll",
+                                        "/api/product/v1/createProduct")
                                 .hasAnyAuthority("MANAGER", "ADMIN")
+                                .requestMatchers(
+                                        "/api/users/v1/**")
+                                .hasAnyAuthority("ADMIN")
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();

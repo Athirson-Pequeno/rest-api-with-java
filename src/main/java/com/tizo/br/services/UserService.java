@@ -1,5 +1,6 @@
 package com.tizo.br.services;
 
+import com.tizo.br.exceptions.ResourceNotFoundException;
 import com.tizo.br.mapper.ModelMapperUtil;
 import com.tizo.br.model.Permission;
 import com.tizo.br.model.User;
@@ -8,6 +9,7 @@ import com.tizo.br.model.vo.security.UserInfosVO;
 import com.tizo.br.repositories.PermissionRepository;
 import com.tizo.br.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
 
 @Service
 public class UserService implements UserDetailsService {
@@ -38,12 +39,17 @@ public class UserService implements UserDetailsService {
         return ModelMapperUtil.parseListObjects(userRepository.findAll(), UserInfosVO.class);
     }
 
-    public UserInfosVO createUser(UserAccountRecordVO user, List<Long> authorityID) {
+    public UserInfosVO createUser(UserAccountRecordVO user, List<String> authorityID) {
 
         return ModelMapperUtil.parseObject(userRepository.save(userAccountRecordVOToUser(user, authorityID)), UserInfosVO.class);
     }
 
-    private User userAccountRecordVOToUser(UserAccountRecordVO userAccountRecordVO, List<Long> authorityID) {
+    public void delete(Long id) {
+        var user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No user found for this id."));
+        userRepository.delete(user);
+    }
+
+    private User userAccountRecordVOToUser(UserAccountRecordVO userAccountRecordVO, List<String> authorityID) {
 
         User user = new User();
 
@@ -70,8 +76,8 @@ public class UserService implements UserDetailsService {
 
         List<Permission> permissions = new ArrayList<>();
 
-        for (Long authority : authorityID) {
-            permissions.add(permissionRepository.findById(authority).stream().findFirst().orElse(new Permission(99L, "ERRO")));
+        for (String authority : authorityID) {
+            permissions.add(permissionRepository.findByDescription(authority));
         }
 
         user.setPermissions(permissions);

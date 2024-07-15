@@ -113,6 +113,7 @@ public class JwtTokenProvider {
         Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
         JWTVerifier jwtVerifier = JWT.require(alg).build();
 
+
         return jwtVerifier.verify(token);
     }
 

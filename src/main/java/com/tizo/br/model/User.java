@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails, Serializable {
+public class User implements UserDetails, Serializable{
 
     @Serial
     private static final long serialVersionUID = 1L;

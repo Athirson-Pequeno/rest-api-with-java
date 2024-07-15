@@ -2,7 +2,6 @@ package com.tizo.br.controllers;
 
 import com.tizo.br.model.vo.security.AccountCredentialsVO;
 import com.tizo.br.model.vo.security.TokenVO;
-import com.tizo.br.model.vo.security.UserAccountRecordVO;
 import com.tizo.br.services.AuthServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -74,6 +73,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 
         var token = authServices.refreshToken(email, refreshToken);
+
         if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request!");
 
         return token;
