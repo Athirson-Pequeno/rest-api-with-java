@@ -14,7 +14,6 @@ public class SectorService {
     SectorRepository sectorRepository;
 
     public Sector createSector(Sector sector) {
-        
         return sectorRepository.save(sector);
     }
 

@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
 @Table(name = "products")
+@Entity
 public class Product implements Serializable {
 
     @Serial
@@ -21,22 +22,18 @@ public class Product implements Serializable {
     private String productCode;
     private String colorCode;
     private String colorName;
+    private Integer quantityPerBatch;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "product_sectors",
-            joinColumns = {@JoinColumn(name = "id_products")},
-            inverseJoinColumns = {@JoinColumn(name = "id_sectors")}
+            name = "product_parts",
+            joinColumns = {@JoinColumn(name = "id_product")},
+            inverseJoinColumns = {@JoinColumn(name = "id_part")}
     )
-    private List<Sector> sectors;
+    private List<Part> parts;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "product_types",
-            joinColumns = {@JoinColumn(name = "id_products")},
-            inverseJoinColumns = {@JoinColumn(name = "id_types")}
-    )
-    private List<Type> types;
+    public Product() {
+    }
 
     public Long getId() {
         return id;
@@ -78,31 +75,52 @@ public class Product implements Serializable {
         this.colorName = colorName;
     }
 
+    public Integer getQuantityPerBatch() {
+        return quantityPerBatch;
+    }
+
+    public void setQuantityPerBatch(Integer quantityPerBatch) {
+        this.quantityPerBatch = quantityPerBatch;
+    }
+
+    public List<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
+    }
+
     public List<Sector> getSectors() {
+        List<Sector> sectors = new ArrayList<>();
+        for (Part part : parts) {
+            for (Sector sector : part.getSectors()) {
+                if (!sectors.contains(sector)) {
+                    sectors.add(sector);
+                }
+            }
+        }
         return sectors;
-    }
-
-    public void setSectors(List<Sector> sectors) {
-        this.sectors = sectors;
-    }
-
-    public List<Type> getTypes() {
-        return types;
-    }
-
-    public void setTypes(List<Type> types) {
-        this.types = types;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
-        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(productCode, product.productCode) && Objects.equals(colorCode, product.colorCode) && Objects.equals(colorName, product.colorName) && Objects.equals(sectors, product.sectors) && Objects.equals(types, product.types);
+        return Objects.equals(id, product.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, productCode, colorCode, colorName, sectors, types);
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", colorName='" + colorName + '\'' +
+                '}';
     }
 }

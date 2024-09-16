@@ -6,8 +6,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
 @Table(name = "types")
+@Entity
 public class Type implements Serializable {
 
     @Serial
@@ -41,11 +41,19 @@ public class Type implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Type type)) return false;
-        return Objects.equals(id, type.id) && Objects.equals(description, type.description);
+        return Objects.equals(id, type.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description);
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
