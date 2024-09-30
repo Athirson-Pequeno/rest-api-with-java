@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-@Table(name = "part_of_products")
+@Table(name = "parts")
 @Entity
 public class Part implements Serializable {
 
@@ -21,7 +21,7 @@ public class Part implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "part_sector",
+            name = "part_sectors",
             joinColumns = {@JoinColumn(name = "id_part")},
             inverseJoinColumns = {@JoinColumn(name = "id_sector")}
     )
@@ -29,7 +29,7 @@ public class Part implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "part_type",
+            name = "part_types",
             joinColumns = {@JoinColumn(name = "id_part")},
             inverseJoinColumns = {@JoinColumn(name = "id_type")}
     )

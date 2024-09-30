@@ -42,7 +42,6 @@ public class PartsService {
     }
 
     public List<Part> getAllParts() {
-
         return partsRepository.findAll().stream().toList();
     }
 }

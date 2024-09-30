@@ -32,8 +32,8 @@ public class AuthServices {
     public ResponseEntity signIn(AccountCredentialsVO data) {
 
         try {
-            var email = data.getEmail();
-            var password = data.getPassword();
+            var email = data.email();
+            var password = data.password();
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 

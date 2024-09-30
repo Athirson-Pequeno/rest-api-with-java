@@ -22,7 +22,7 @@ public class ProductService {
 
     public Product createProduct(Product product) {
         List<Part> parts = new ArrayList<>();
-        for (Part p :  product.getParts()) {
+        for (Part p : product.getParts()) {
             parts.add(partsRepository.findById(p.getId()).orElseThrow(() -> new EntityNotFoundException("Produto com ID " + p.getId() + " não encontrado.")));
         }
         product.setParts(parts);

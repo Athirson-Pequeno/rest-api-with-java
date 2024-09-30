@@ -1,5 +1,6 @@
 package com.tizo.br.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -18,15 +19,10 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantity;
-    private String status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "order_products",
-            joinColumns = {@JoinColumn(name = "id_order")},
-            inverseJoinColumns = {@JoinColumn(name = "id_product")}
-    )
-    private List<Product> itens;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<OrderProduct> itens;
 
     public Order() {
     }
@@ -47,19 +43,11 @@ public class Order implements Serializable {
         this.quantity = quantity;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<Product> getItens() {
+    public List<OrderProduct> getItens() {
         return itens;
     }
 
-    public void setItens(List<Product> itens) {
+    public void setItens(List<OrderProduct> itens) {
         this.itens = itens;
     }
 
@@ -80,7 +68,7 @@ public class Order implements Serializable {
         return "Order{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", status='" + status +
+                ", itens=" + itens +
                 '}';
     }
 }

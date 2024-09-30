@@ -1,6 +1,5 @@
 package com.tizo.br.controllers;
 
-import com.tizo.br.model.Order;
 import com.tizo.br.model.Product;
 import com.tizo.br.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -46,7 +45,6 @@ public class ProductController {
             }
     )
     public ResponseEntity<List<Product>> getAllProducts() {
-        Order order = new Order();
         return ResponseEntity.ok(productService.getAllProducts());
     }
 

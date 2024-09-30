@@ -69,10 +69,11 @@ public class UserService implements UserDetailsService {
         DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoderMap);
         passwordEncoder.setDefaultPasswordEncoderForMatches(pbkdf2PasswordEncoder);
 
+
         //Atualiza a senha para a senha criptografada
-        user.setPassword(passwordEncoder.encode(userAccountRecordVO.getPassword()));
-        user.setEmail(userAccountRecordVO.getEmail());
-        user.setUsername(userAccountRecordVO.getUsername());
+        user.setPassword(passwordEncoder.encode(userAccountRecordVO.password()));
+        user.setEmail(userAccountRecordVO.email());
+        user.setUsername(userAccountRecordVO.username());
 
         List<Permission> permissions = new ArrayList<>();
 

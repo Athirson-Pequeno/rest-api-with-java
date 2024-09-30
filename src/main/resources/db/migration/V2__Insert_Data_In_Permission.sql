@@ -1,4 +1,4 @@
-﻿INSERT INTO `permission` (`description`) VALUES
-	('ADMIN'),
-	('MANAGER'),
-	('COMMON_USER');
+﻿INSERT INTO `permissions` (`description`)
+VALUES ('ADMIN'),
+       ('MANAGER'),
+       ('COMMON_USER');

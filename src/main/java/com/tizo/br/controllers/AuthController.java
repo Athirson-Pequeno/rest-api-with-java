@@ -51,9 +51,7 @@ public class AuthController {
     }
 
     @SuppressWarnings("rawtypes")
-    @PutMapping(value = "/refresh/{email}",
-            produces = {"application/json"},
-            consumes = {"application/json"})
+    @PutMapping(value = "/refresh/{email}")
     @Operation(summary = "Refresh the JWT token",
             description = "Generate a JWT token when the user passes their email and their old token",
             tags = {"Auth"},
@@ -80,7 +78,7 @@ public class AuthController {
     }
 
     private boolean checkIfParamsIsNotNull(AccountCredentialsVO data) {
-        return data == null || data.getEmail() == null || data.getEmail().isBlank() || data.getPassword() == null || data.getPassword().isBlank();
+        return data == null || data.email() == null || data.email().isBlank() || data.password() == null || data.password().isBlank();
     }
 
     private boolean checkIfParamsIsNotNull(String username, String refreshToken) {

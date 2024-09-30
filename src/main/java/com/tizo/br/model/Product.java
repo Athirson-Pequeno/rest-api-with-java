@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Table(name = "products")
 @Entity
@@ -22,7 +20,6 @@ public class Product implements Serializable {
     private String productCode;
     private String colorCode;
     private String colorName;
-    private Integer quantityPerBatch;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -30,7 +27,7 @@ public class Product implements Serializable {
             joinColumns = {@JoinColumn(name = "id_product")},
             inverseJoinColumns = {@JoinColumn(name = "id_part")}
     )
-    private List<Part> parts;
+    private List<Part> parts = new ArrayList<>();
 
     public Product() {
     }
@@ -75,32 +72,12 @@ public class Product implements Serializable {
         this.colorName = colorName;
     }
 
-    public Integer getQuantityPerBatch() {
-        return quantityPerBatch;
-    }
-
-    public void setQuantityPerBatch(Integer quantityPerBatch) {
-        this.quantityPerBatch = quantityPerBatch;
-    }
-
     public List<Part> getParts() {
         return parts;
     }
 
     public void setParts(List<Part> parts) {
         this.parts = parts;
-    }
-
-    public List<Sector> getSectors() {
-        List<Sector> sectors = new ArrayList<>();
-        for (Part part : parts) {
-            for (Sector sector : part.getSectors()) {
-                if (!sectors.contains(sector)) {
-                    sectors.add(sector);
-                }
-            }
-        }
-        return sectors;
     }
 
     @Override
@@ -120,7 +97,10 @@ public class Product implements Serializable {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", productCode='" + productCode + '\'' +
+                ", colorCode='" + colorCode + '\'' +
                 ", colorName='" + colorName + '\'' +
+                ", parts=" + parts +
                 '}';
     }
 }
