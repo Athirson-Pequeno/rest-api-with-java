@@ -1,6 +1,5 @@
 package com.tizo.br.security.jwt;
 
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -21,7 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-
 
 @Service
 public class JwtTokenProvider {
@@ -61,7 +59,7 @@ public class JwtTokenProvider {
         Date validate = new Date(now.getTime() + validateInMilliseconds);
         var accessToken = getAccessToken(username, roles, now, validate);
         var refreshToken = getRefreshToken(username, roles, now);
-        return new TokenVO(username, true, now, validate, accessToken, refreshToken,roles);
+        return new TokenVO(username, true, now, validate, accessToken, refreshToken, roles);
     }
 
     private String getRefreshToken(String username, List<String> roles, Date now) {
@@ -113,7 +111,6 @@ public class JwtTokenProvider {
         Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
         JWTVerifier jwtVerifier = JWT.require(alg).build();
 
-
         return jwtVerifier.verify(token);
     }
 
@@ -132,5 +129,10 @@ public class JwtTokenProvider {
         } catch (Exception e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token!");
         }
+    }
+
+    public UserDetails getUserDetails(String token) {
+        DecodedJWT decodedJWT = decodedToken(token);
+        return userDetailsService.loadUserByUsername(decodedJWT.getSubject());
     }
 }

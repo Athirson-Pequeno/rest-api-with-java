@@ -1,7 +1,6 @@
 package com.tizo.br.controllers;
 
 import com.tizo.br.model.Sector;
-import com.tizo.br.model.vo.security.UserInfosVO;
 import com.tizo.br.services.SectorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

@@ -1,16 +1,18 @@
 package com.tizo.br.services;
 
 import com.tizo.br.model.Order;
+import com.tizo.br.model.OrderProduct;
 import com.tizo.br.model.Product;
 import com.tizo.br.model.enums.Status;
-import com.tizo.br.model.OrderProduct;
+import com.tizo.br.model.vo.security.OrderRecord;
 import com.tizo.br.repositories.OrderProductRepository;
 import com.tizo.br.repositories.OrderRepository;
 import com.tizo.br.repositories.ProductRepository;
+import com.tizo.br.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,21 +27,21 @@ public class OrderService {
     @Autowired
     private OrderProductRepository orderProductRepository;
 
-    public Order createOrder() {
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    public Order createOrder(List<OrderRecord> orders, String token) {
+
         Order order = new Order();
-        order.setQuantity(200);
+        order.setDate(new Date());
+        order.setClient(jwtTokenProvider.getUserDetails(token.replace("Bearer ", "")).getUsername());
         order = orderRepository.save(order);
-        System.out.println(order);
 
-        List<Long> productIDs = new ArrayList<>();
-        List<Status> statusList = new ArrayList<>();
+        for (OrderRecord orderRecord : orders) {
 
-        productIDs.add(1L);
-        statusList.add(Status.RECEIVED);
-
-        for (int i = 0; i < productIDs.size(); i++) {
-            Long produtoId = productIDs.get(i);
-            Status status = statusList.get(i);
+            Long produtoId = orderRecord.productID();
+            Integer amount = orderRecord.amount();
+            Status status = Status.RECEIVED;
 
             Product product = productRepository.findById(produtoId)
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
@@ -48,17 +50,15 @@ public class OrderService {
             orderProduct.setOrder(order);
             orderProduct.setProduct(product);
             orderProduct.setStatus(status);
+            orderProduct.setAmount(amount);
 
             orderProductRepository.save(orderProduct);
         }
 
-        Order orderWithProducts = orderRepository.findById(order.getId()).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
-        orderWithProducts.getItens().size();
-
-        return orderWithProducts;
+        return orderRepository.findById(order.getId()).orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
     }
 
-    public List<Order> findAll(){
+    public List<Order> findAll() {
         return orderRepository.findAll();
     }
 }

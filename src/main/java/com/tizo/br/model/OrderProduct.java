@@ -5,11 +5,12 @@ import com.tizo.br.model.enums.Status;
 import jakarta.persistence.*;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_products")
-public class OrderProduct {
+public class OrderProduct implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

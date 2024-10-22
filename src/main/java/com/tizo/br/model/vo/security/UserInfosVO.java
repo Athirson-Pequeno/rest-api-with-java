@@ -1,10 +1,7 @@
 package com.tizo.br.model.vo.security;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 

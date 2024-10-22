@@ -27,10 +27,10 @@ public class JwtTokenFilter extends GenericFilterBean {
         //separa o token de autorização do header da requisição
         String token = tokenProvider.resolveToken((HttpServletRequest) request);
         //verifica se o token não é nulo e se ele é válido e está em dia
-        if (token!=null && tokenProvider.validateToken(token)){
+        if (token != null && tokenProvider.validateToken(token)) {
             //busca detalhes do usuário autenticado
             Authentication authentication = tokenProvider.getAuthentication(token);
-            if (authentication != null){
+            if (authentication != null) {
                 //autentica o usuário no contexto de segurança da API
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

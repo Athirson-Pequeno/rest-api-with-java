@@ -9,11 +9,11 @@ import java.io.Serial;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends AuthenticationException {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	public ResourceNotFoundException(String ex) {
-		super(ex);
-	}
+    public ResourceNotFoundException(String ex) {
+        super(ex);
+    }
 
 }

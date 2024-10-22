@@ -9,7 +9,6 @@ import com.tizo.br.model.vo.security.UserInfosVO;
 import com.tizo.br.repositories.PermissionRepository;
 import com.tizo.br.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,7 +44,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void delete(Long id) {
-        var user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No user found for this id."));
+        var user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No user found for this id."));
         userRepository.delete(user);
     }
 

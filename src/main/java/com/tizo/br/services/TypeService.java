@@ -1,7 +1,6 @@
 package com.tizo.br.services;
 
 import com.tizo.br.model.Type;
-import com.tizo.br.model.enums.UsersPermission;
 import com.tizo.br.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

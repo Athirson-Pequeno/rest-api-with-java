@@ -9,11 +9,11 @@ import java.io.Serial;
 @ResponseStatus(HttpStatus.FORBIDDEN)
 public class InvalidJwtAuthenticationException extends AuthenticationException {
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	public InvalidJwtAuthenticationException(String ex) {
-		super(ex);
-	}
+    public InvalidJwtAuthenticationException(String ex) {
+        super(ex);
+    }
 
 }

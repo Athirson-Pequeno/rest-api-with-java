@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,10 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer quantity;
+
+    private String client;
+
+    private Date date;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
@@ -35,20 +39,28 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public List<OrderProduct> getItens() {
         return itens;
     }
 
     public void setItens(List<OrderProduct> itens) {
         this.itens = itens;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -67,7 +79,8 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", quantity=" + quantity +
+                ", client='" + client + '\'' +
+                ", date=" + date +
                 ", itens=" + itens +
                 '}';
     }
