@@ -8,6 +8,7 @@ public class RestApiWithJavaApplication {
 
     /*
     * API desenvolvida com o intuito de estudar Java usando o framework Spring
+    * A API simula um fluxo de pedidos internos de uma empresa
     * */
 
     public static void main(String[] args) {
