@@ -18,6 +18,12 @@ public class OrderProduct implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(name = "amount_products")
+    private Integer amount;
+
+    @Column(name = "status_product")
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "id_order")
@@ -27,12 +33,6 @@ public class OrderProduct implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_product")
     private Product product;
-
-    @Column(name = "status_product")
-    private Status status;
-
-    @Column(name = "amount_products")
-    private Integer amount;
 
     public OrderProduct() {
     }
