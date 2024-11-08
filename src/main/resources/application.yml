@@ -8,7 +8,7 @@ security:
       expire-length: 3600000
 # noinspection undefined
 cors:
-  originPatters: http://localhost:3000,http://localhost:8080,http://localhost:80
+  originPatterns: http://localhost:3000,http://localhost:8080,http://localhost:80,http://localhost:4200
 spring:
   application:
     name: rest-api-with-java

@@ -53,11 +53,10 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(httpSecurityCorsConfigurer -> {
-                })
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(
+                                        "/api/sectors/v1",
                                         "/auth/**",
                                         "/api/users/v1",
                                         "/api/users/v1/recordUser/commonUser",
