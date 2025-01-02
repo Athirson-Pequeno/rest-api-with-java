@@ -56,7 +56,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(
-                                        "/api/sectors/v1",
                                         "/auth/**",
                                         "/api/users/v1",
                                         "/api/users/v1/recordUser/commonUser",
@@ -65,6 +64,7 @@ public class SecurityConfig {
                                         "/api/product/v1/findAll")
                                 .permitAll()
                                 .requestMatchers(
+                                        "/api/sectors/v1",
                                         "/api/users/v1/recordUser/managerUser",
                                         "/api/users/v1/findAll",
                                         "/api/product/v1/createProduct")
