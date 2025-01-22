@@ -58,13 +58,13 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/auth/**",
                                         "/api/users/v1",
+                                        "/api/sectors/v1",
                                         "/api/users/v1/recordUser/commonUser",
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/api/product/v1/findAll")
                                 .permitAll()
                                 .requestMatchers(
-                                        "/api/sectors/v1",
                                         "/api/users/v1/recordUser/managerUser",
                                         "/api/users/v1/findAll",
                                         "/api/product/v1/createProduct")
