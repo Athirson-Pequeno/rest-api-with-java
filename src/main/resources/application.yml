@@ -8,22 +8,22 @@ security:
       expire-length: 3600000
 
 cors:
-  originPatterns: http://localhost:3000,http://localhost:8080,http://localhost:80,http://localhost:4200
+  originPatterns: http://localhost:3000,http://localhost:8080,http://localhost:80,http://localhost:4200,http://192.168.0.112:4200
 
 spring:
   application:
     name: rest-api-with-java
 
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:3306/rest_api_database?useTimezone=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/rest_api_database?useTimezone=true&serverTimezone=UTC
     username: root
-    password: 36412
+    password: asp36412
 
   flyway:
-    url: jdbc:mariadb://127.0.0.1:3306/rest_api_database?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/rest_api_database?useTimezone=true&serverTimezone=UTC
     user: root
-    password: 36412
+    password: asp36412
 
   jpa:
     open-in-view: false
