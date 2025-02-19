@@ -2,6 +2,7 @@ package com.tizo.br.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 @Table(name = "orders")
 @Entity
-public class Order implements Serializable {
+public class Order extends RepresentationModel<Order> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

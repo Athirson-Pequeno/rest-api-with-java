@@ -3,6 +3,7 @@ package com.tizo.br.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tizo.br.model.enums.Status;
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "order_products")
-public class OrderProduct implements Serializable {
+public class OrderProduct extends RepresentationModel<OrderProduct> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

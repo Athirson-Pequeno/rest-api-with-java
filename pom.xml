@@ -32,6 +32,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!-- JWT Oauth -->
         <dependency>
@@ -46,7 +55,6 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>3.1.0</version>
         </dependency> -->
-
 
         <dependency>
             <groupId>com.mysql</groupId>

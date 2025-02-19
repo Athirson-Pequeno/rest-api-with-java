@@ -1,6 +1,8 @@
 package com.tizo.br.model;
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,7 +11,7 @@ import java.util.Objects;
 
 @Table(name = "parts")
 @Entity
-public class Part implements Serializable {
+public class Part extends RepresentationModel<Part> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

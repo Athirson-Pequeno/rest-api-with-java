@@ -1,6 +1,7 @@
 package com.tizo.br.model;
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 @Table(name = "products")
 @Entity
-public class Product implements Serializable {
+public class Product extends RepresentationModel<Product>  implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

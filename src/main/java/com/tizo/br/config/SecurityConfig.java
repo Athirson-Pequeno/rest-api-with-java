@@ -5,6 +5,7 @@ import com.tizo.br.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,7 +59,6 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/auth/**",
                                         "/api/users/v1",
-                                        "/api/sectors/v1",
                                         "/api/users/v1/recordUser/commonUser",
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
@@ -67,11 +67,13 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/users/v1/recordUser/managerUser",
                                         "/api/users/v1/findAll",
+                                        "/api/sectors/v1",
                                         "/api/product/v1/createProduct")
                                 .hasAnyAuthority("MANAGER", "ADMIN")
-                                .requestMatchers(
-                                        "/api/users/v1/**")
-                                .hasAnyAuthority("ADMIN")
+                                .requestMatchers("/api/users/v1/**").hasAnyAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/products/v1/**").hasAnyAuthority("ADMIN","MANAGER")
+                                .requestMatchers(HttpMethod.PUT, "/api/products/v1/**").hasAnyAuthority("ADMIN","MANAGER")
+                                .requestMatchers(HttpMethod.POST, "/api/products/v1/**").hasAnyAuthority("ADMIN","MANAGER")
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

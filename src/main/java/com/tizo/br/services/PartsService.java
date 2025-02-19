@@ -8,6 +8,8 @@ import com.tizo.br.repositories.SectorRepository;
 import com.tizo.br.repositories.TypeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,7 +43,24 @@ public class PartsService {
         return partsRepository.save(part);
     }
 
-    public List<Part> getAllParts() {
-        return partsRepository.findAll().stream().toList();
+    public Page<Part> findAll(Pageable pageable) {
+        return partsRepository.findAll(pageable);
+    }
+
+    public void delete(Long id) {
+        partsRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Part not found"));
+        partsRepository.deleteById(id);
+    }
+
+    public Part update(Part part) {
+        partsRepository.findById(part.getId()).orElseThrow(() ->
+                new EntityNotFoundException("Part not found"));
+        return partsRepository.save(part);
+    }
+
+    public Part findById(Long id) {
+        return partsRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Part not found"));
     }
 }

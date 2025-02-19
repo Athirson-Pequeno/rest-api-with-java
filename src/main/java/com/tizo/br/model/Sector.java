@@ -1,6 +1,8 @@
 package com.tizo.br.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -8,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "sectors")
-public class Sector implements Serializable {
+public class Sector extends RepresentationModel<Sector> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -17,6 +19,7 @@ public class Sector implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String description;
 
     public Sector() {

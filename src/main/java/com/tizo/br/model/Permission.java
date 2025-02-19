@@ -1,6 +1,7 @@
 package com.tizo.br.model;
 
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serial;

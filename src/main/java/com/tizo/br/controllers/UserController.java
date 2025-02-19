@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @GetMapping(value = "/findAll", produces = {"application/json"})
+    @GetMapping(produces = {"application/json"})
     @Operation(
             security = @SecurityRequirement(name = "bearer-key"),
             summary = "Find all users",
@@ -54,7 +55,7 @@ public class UserController {
     }
 
     @PostMapping(
-            value = "/recordUser/commonUser",
+            value = "/register/common",
             produces = {"application/json"},
             consumes = {"application/json"})
     @Operation(summary = "Adds a new User with common user role",
@@ -76,7 +77,7 @@ public class UserController {
     }
 
     @PostMapping(
-            value = "/recordUser/managerUser",
+            value = "/register/manager",
             produces = {"application/json"},
             consumes = {"application/json"})
     @Operation(
@@ -97,7 +98,6 @@ public class UserController {
     public ResponseEntity<UserInfosVO> createManager(@RequestBody UserAccountRecordVO user) {
         List<String> authorities = new ArrayList<>();
         authorities.add(UsersPermission.MANAGER.name());
-        authorities.add(UsersPermission.COMMON_USER.name());
         return ResponseEntity.ok(service.createUser(user, authorities));
     }
 
@@ -118,6 +118,6 @@ public class UserController {
     )
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id) {
         service.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
