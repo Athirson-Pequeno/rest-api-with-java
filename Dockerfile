@@ -4,10 +4,6 @@ FROM --platform=linux/arm64 eclipse-temurin:21-jdk-jammy
 # Define o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Cria um usuário não-root para segurança
-RUN adduser --system --group appuser && chown -R appuser:appuser /app
-USER appuser
-
 # Copia o arquivo .jar para o contêiner
 COPY target/rest-api-with-java-0.0.1-SNAPSHOT.jar /app/
 
