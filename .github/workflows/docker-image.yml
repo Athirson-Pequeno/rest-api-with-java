@@ -36,7 +36,3 @@ jobs:
         push: true
         tags: |
           athirsonpequeno/api-produtos:latest
-
-    - name: Trigger Update
-      run: |
-        curl -X POST http://177.70.176.82:9000/hooks/update-api
