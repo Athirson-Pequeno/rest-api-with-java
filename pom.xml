@@ -49,6 +49,12 @@
             <version>3.18.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- MariaDB
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
