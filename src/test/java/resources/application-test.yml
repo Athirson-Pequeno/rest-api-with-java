@@ -1,6 +1,6 @@
 spring:
   flyway:
-    enabled: 'false # Desabilita o Flyway para testes'
+    enabled: false
   datasource:
     username: sa
     url: jdbc:h2:mem:testdb
